@@ -1,5 +1,17 @@
 from django.db import models
 
+
+TICKET_STATUS_CHOICES = (
+    ('open', 'Open'),
+    ('closed', 'Closed')
+)
+
+TICKET_PRIORITY_CHOICES = (
+    (3, 'High'),
+    (2, 'Medium'),
+    (1, 'Low')
+)
+
 # Create your models here.
 class Patient(models.Model):
     fullname = models.CharField(max_length=128)
@@ -59,5 +71,20 @@ class Pharmacy(models.Model):
 
     def __repr__(self):
         return self.name
+
+    __str__ = __repr__
+
+
+class ClinicTickets(models.Model):
+    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, null=True, on_delete=models.SET_NULL)
+    assigned_to = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
+    assigned_on = models.DateTimeField()
+    description = models.TextField()
+    status = models.CharField(max_length=16, choices=TICKET_STATUS_CHOICES)
+    priority = models.PositiveSmallIntegerField(choices=TICKET_PRIORITY_CHOICES)
+
+    def __repr__(self):
+        return self.status
 
     __str__ = __repr__
