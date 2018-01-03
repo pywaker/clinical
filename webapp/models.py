@@ -12,6 +12,7 @@ TICKET_PRIORITY_CHOICES = (
     (1, 'Low')
 )
 
+
 # Create your models here.
 class Patient(models.Model):
     fullname = models.CharField(max_length=128)
@@ -86,5 +87,49 @@ class ClinicTickets(models.Model):
 
     def __repr__(self):
         return self.status
+
+    __str__ = __repr__
+
+
+class MedicalHistory(models.Model):
+    patient = models.ForeignKey(Patient, null=True, on_delete=models.SET_NULL)
+    doctor = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
+    assigned_on = models.DateTimeField()
+    symptoms = models.TextField()
+    diagnosis = models.TextField()
+    note = models.TextField()
+
+    def __repr__(self):
+        return self.patient.fullname
+
+    __str__ = __repr__
+
+
+class LabTickets(models.Model):
+    lab = models.ForeignKey(Lab, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, null=True, on_delete=models.SET_NULL)
+    referrer = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
+    assigned_on = models.DateTimeField()
+    test = models.TextField()
+    result = models.TextField()
+    status = models.CharField(max_length=16, choices=TICKET_STATUS_CHOICES)
+    priority = models.PositiveSmallIntegerField(choices=TICKET_PRIORITY_CHOICES)
+
+    def __repr__(self):
+        return self.test
+
+    __str__ = __repr__
+
+
+class FarmacyTickets(models.Model):
+    patient = models.ForeignKey(Patient, null=True, on_delete=models.SET_NULL)
+    referrer = models.ForeignKey(Doctor, null=True, on_delete=models.SET_NULL)
+    assigned_on = models.DateTimeField()
+    medicines = models.TextField()
+    status = models.CharField(max_length=16, choices=TICKET_STATUS_CHOICES)
+    priority = models.PositiveSmallIntegerField(choices=TICKET_PRIORITY_CHOICES)
+
+    def __repr__(self):
+        return self.test
 
     __str__ = __repr__
