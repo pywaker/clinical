@@ -44,7 +44,7 @@ class Clinic(models.Model):
     name = models.CharField(max_length=128)
     address = models.TextField()
     phone = models.CharField(max_length=32)
-    email = models.CharField(max_length=128)
+    email = models.EmailField(max_length=128)
 
     def __repr__(self):
         return self.name
