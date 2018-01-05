@@ -15,11 +15,6 @@ TICKET_PRIORITY_CHOICES = (
 
 
 # Create your models here.
-# class Employee(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     department = models
-
-
 class Patient(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     fullname = models.CharField(max_length=128)
@@ -52,6 +47,15 @@ class Doctor(models.Model):
     __str__ = __repr__
 
 
+class Employee(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=128)
+    department = models.CharField(max_length=128)
+
+    class Meta:
+        abstract = True
+
+
 class Clinic(models.Model):
     name = models.CharField(max_length=128)
     address = models.TextField()
@@ -64,6 +68,10 @@ class Clinic(models.Model):
         return self.name
 
     __str__ = __repr__
+
+
+class ClinicEmployee(Employee):
+    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)
 
 
 class Lab(models.Model):
@@ -80,6 +88,10 @@ class Lab(models.Model):
     __str__ = __repr__
 
 
+class LabEmployee(Employee):
+    lab = models.ForeignKey(Lab, on_delete=models.CASCADE)
+
+
 class Pharmacy(models.Model):
     name = models.CharField(max_length=128)
     address = models.TextField()
@@ -92,6 +104,10 @@ class Pharmacy(models.Model):
         return self.name
 
     __str__ = __repr__
+
+
+class PharmacyEmployee(Employee):
+    pharmacy = models.ForeignKey(Pharmacy, on_delete=models.CASCADE)
 
 
 class ClinicTickets(models.Model):
