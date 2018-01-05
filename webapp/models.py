@@ -19,6 +19,8 @@ class Patient(models.Model):
     address = models.TextField()
     phone = models.CharField(max_length=32)
     email = models.CharField(max_length=128)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.fullname
@@ -33,6 +35,8 @@ class Doctor(models.Model):
     email = models.CharField(max_length=128)
     specialty = models.CharField(max_length=128)
     department = models.CharField(max_length=128)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.fullname
@@ -45,6 +49,8 @@ class Clinic(models.Model):
     address = models.TextField()
     phone = models.CharField(max_length=32)
     email = models.EmailField(max_length=128)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.name
@@ -57,6 +63,8 @@ class Lab(models.Model):
     address = models.TextField()
     phone = models.CharField(max_length=32)
     email = models.CharField(max_length=128)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.name
@@ -69,6 +77,8 @@ class Pharmacy(models.Model):
     address = models.TextField()
     phone = models.CharField(max_length=32)
     email = models.CharField(max_length=128)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.name
@@ -84,6 +94,8 @@ class ClinicTickets(models.Model):
     description = models.TextField()
     status = models.CharField(max_length=16, choices=TICKET_STATUS_CHOICES)
     priority = models.PositiveSmallIntegerField(choices=TICKET_PRIORITY_CHOICES)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.status
@@ -98,6 +110,8 @@ class MedicalHistory(models.Model):
     symptoms = models.TextField()
     diagnosis = models.TextField()
     note = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.patient.fullname
@@ -114,6 +128,8 @@ class LabTickets(models.Model):
     result = models.TextField()
     status = models.CharField(max_length=16, choices=TICKET_STATUS_CHOICES)
     priority = models.PositiveSmallIntegerField(choices=TICKET_PRIORITY_CHOICES)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.test
@@ -128,6 +144,8 @@ class FarmacyTickets(models.Model):
     medicines = models.TextField()
     status = models.CharField(max_length=16, choices=TICKET_STATUS_CHOICES)
     priority = models.PositiveSmallIntegerField(choices=TICKET_PRIORITY_CHOICES)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __repr__(self):
         return self.test
