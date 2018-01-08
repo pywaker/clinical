@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+import os
+IMAGE_PATH = 'images'
+
 
 TICKET_STATUS_CHOICES = (
     ('open', 'Open'),
@@ -150,6 +153,7 @@ class LabTickets(models.Model):
     assigned_on = models.DateTimeField()
     test = models.TextField()
     result = models.TextField()
+    image = models.ImageField(upload_to=IMAGE_PATH, blank=True, null=True)
     status = models.CharField(max_length=16, choices=TICKET_STATUS_CHOICES)
     priority = models.PositiveSmallIntegerField(choices=TICKET_PRIORITY_CHOICES)
     created_on = models.DateTimeField(auto_now_add=True)
