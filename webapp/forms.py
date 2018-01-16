@@ -1,7 +1,6 @@
 #
 
 from django import forms
-from .models import ClinicTickets
 
 
 class ClinicTicketForm(forms.Form):

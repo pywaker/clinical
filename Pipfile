@@ -10,6 +10,7 @@ name = "pypi"
 django = "*"
 django-grappelli = "*"
 pillow = "*"
+django-debug-toolbar = "*"
 
 
 [dev-packages]

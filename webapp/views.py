@@ -1,4 +1,5 @@
 
+import logging
 from django.utils import timezone
 from django.shortcuts import render
 from django.contrib import messages
@@ -7,8 +8,13 @@ from .models import Clinic, ClinicTickets, Patient
 from .forms import ClinicTicketForm
 
 
+logger = logging.getLogger('django')
+
+
+
 # Create your views here.
 def create_ticket(request):
+    # print(logger)
     form = ClinicTicketForm(request.POST or None)
     clinics = Clinic.objects.values_list('id', 'name')
     form.fields['clinic'].choices = list(clinics)
@@ -16,7 +22,7 @@ def create_ticket(request):
         # print(form.is_valid(), '<-------')
         # print(form.errors)
         if form.is_valid():
-            print(form.cleaned_data)
+            # print(form.cleaned_data)
             clinic = Clinic.objects.get(pk=form.cleaned_data['clinic'])
             ticket = ClinicTickets(
                 clinic=clinic,
@@ -27,7 +33,8 @@ def create_ticket(request):
                 priority=2
             )
             ticket.save()
-            print('------------->Hrere')
+            # print('------------->Hrere')
+            logger.info("successfully saved.")
             messages.success(request, 'Ticket created successfully.')
     return render(template_name='create_ticket.html',
                   request=request, context={'form': form})
