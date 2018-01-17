@@ -3,8 +3,9 @@ import logging
 from django.utils import timezone
 from django.shortcuts import render
 from django.contrib import messages
+from django.db.models import Prefetch
 
-from .models import Clinic, ClinicTickets, Patient
+from .models import Clinic, ClinicTickets, Patient, Doctor
 from .forms import ClinicTicketForm
 
 
@@ -38,3 +39,9 @@ def create_ticket(request):
             messages.success(request, 'Ticket created successfully.')
     return render(template_name='create_ticket.html',
                   request=request, context={'form': form})
+
+
+def list_doctors(request):
+    doctors = Doctor.objects.prefetch_related(Prefetch('user')).all()
+    return render(template_name='list_doctors.html',
+                  request=request, context={'doctors': doctors})

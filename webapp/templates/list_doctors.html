@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fullname</th>
+            <th>Username</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Specialty</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in doctors %}
+        <tr>
+            <td>{{obj.fullname}}</td>
+            <td>{{obj.user.username}}</td>
+            <td>{{obj.address}}</td>
+            <td>{{obj.phone}}</td>
+            <td>{{obj.email}}</td>
+            <td>{{obj.specialty}}</td>
+            <td>{{obj.department}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

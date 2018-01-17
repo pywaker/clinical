@@ -11,6 +11,7 @@ django = "*"
 django-grappelli = "*"
 pillow = "*"
 django-debug-toolbar = "*"
+"psycopg2" = "*"
 
 
 [dev-packages]

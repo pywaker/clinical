@@ -1,7 +1,7 @@
 
 from django.core.management.base import BaseCommand, CommandError
 
-from ._private import create_doctors, create_patients
+from ._private import create_doctors, create_patients, create_clinic, create_tickets
 
 
 class Command(BaseCommand):
@@ -11,3 +11,5 @@ class Command(BaseCommand):
         # print("hello world")
         create_doctors()
         create_patients()
+        create_clinic()
+        create_tickets()
