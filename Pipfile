@@ -12,6 +12,9 @@ django-grappelli = "*"
 pillow = "*"
 django-debug-toolbar = "*"
 "psycopg2" = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
 
 
 [dev-packages]

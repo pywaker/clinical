@@ -24,7 +24,10 @@ urlpatterns = [
     re_path(r'^__debug__/', include(debug_toolbar.urls)),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
     path('entry/', web_views.create_ticket, name='add_ticket'),
     path('doctors/list/', web_views.list_doctors, name='list_doctors'),
-    path('patients/', web_views.list_patients, name='list_patients')
+    path('patients/', web_views.list_patients, name='list_patients'),
+    path('api/patients/', web_views.patient_list),
+    path('api/patients/<int:patient_id>', web_views.get_patient)
 ]

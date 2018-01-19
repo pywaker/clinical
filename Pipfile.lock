@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8fdb19afc4bf5cf915af5628bf389e6882e11fbc456bfac16de9746c50935977"
+            "sha256": "a23ed4e8bede75fa26c31ded02d7c3744f79eb7d402d2da804541f1b270f6b43"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -43,12 +43,33 @@
             ],
             "version": "==1.9.1"
         },
+        "django-filter": {
+            "hashes": [
+                "sha256:ea204242ea83790e1512c9d0d8255002a652a6f4986e93cee664f28955ba0c22",
+                "sha256:ec0ef1ba23ef95b1620f5d481334413700fb33f45cd76d56a63f4b0b1d76976a"
+            ],
+            "version": "==1.1.0"
+        },
         "django-grappelli": {
             "hashes": [
                 "sha256:9b20084b06a4cd0962d14fb33227ebf2429de48d3da073376497e4b13977c4e0",
                 "sha256:dedc5118c2271008937e5e8df37982310af884d29983359da0ebc2292b0b17fd"
             ],
             "version": "==2.10.1"
+        },
+        "djangorestframework": {
+            "hashes": [
+                "sha256:1f6baf40ed456ed2af6bd1a4ff8bbc3503cebea16509993aea2b7085bc097766",
+                "sha256:9f9e94e8d22b100ed3a43cee8c47a7ff7b185e778a1f2da9ec5c73fc4e081b87"
+            ],
+            "version": "==3.7.7"
+        },
+        "markdown": {
+            "hashes": [
+                "sha256:9ba587db9daee7ec761cfc656272be6aabe2ed300fece21208e4aab2e457bc8f",
+                "sha256:a856869c7ff079ad84a3e19cd87a64998350c2b94e9e08e44270faef33400f81"
+            ],
+            "version": "==2.6.11"
         },
         "pillow": {
             "hashes": [

@@ -5,9 +5,12 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.db.models import Prefetch
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 from .models import Clinic, ClinicTickets, Patient, Doctor
 from .forms import ClinicTicketForm
+from .serializers import PatientSerializer
 
 
 logger = logging.getLogger('django')
@@ -60,3 +63,17 @@ def list_patients(request):
     patients = paginator.get_page(page)
     return render(template_name='list_patients.html',
                   request=request, context={'patients': patients})
+
+
+@csrf_exempt
+def patient_list(request):
+    patients_all = Patient.objects.all()
+    serializer = PatientSerializer(patients_all, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+def get_patient(request, patient_id):
+    patients_all = Patient.objects.get(pk=patient_id)
+    serializer = PatientSerializer(patients_all)
+    return JsonResponse(serializer.data)
