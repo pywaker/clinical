@@ -24,6 +24,7 @@ urlpatterns = [
     re_path(r'^__debug__/', include(debug_toolbar.urls)),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
-    path('entry/', web_views.create_ticket),
-    path('doctors/', web_views.list_doctors)
+    path('entry/', web_views.create_ticket, name='add_ticket'),
+    path('doctors/list/', web_views.list_doctors, name='list_doctors'),
+    path('patients/', web_views.list_patients, name='list_patients')
 ]

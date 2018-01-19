@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Fullname</th>
+            <th>Username</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Specialty</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in patients %}
+        <tr class="{% cycle 'odd' 'even' %}">
+            <td>{{ forloop.counter }}</td>
+            <td>{{obj.fullname}}</td>
+            <td>{{obj.user.username}}</td>
+            <td>{{obj.address}}</td>
+            <td>{{obj.phone}}</td>
+            <td>{{obj.email}}</td>
+            <td>{{obj.specialty}}</td>
+            <td>{{obj.department}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav aria-label="Patients">
+  <ul class="pagination">
+    {% if patients.has_previous %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ patients.previous_page_number }}">Previous</a>
+    </li>
+    {% endif %}
+
+    {% with minus1=patients.number|add:"-1" %}
+        {% if patients.number > 1 %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ minus1 }}">{{ minus1 }}</a>
+        </li>
+        {% endif %}
+    {% endwith %}
+    
+    <li class="page-item active">
+      <a class="page-link" href="#">{{ patients.number }} <span class="sr-only">(current)</span></a>
+    </li>
+
+    {% if patients.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ patients.next_page_number }}">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}
