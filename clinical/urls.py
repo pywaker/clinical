@@ -28,6 +28,8 @@ urlpatterns = [
     path('entry/', web_views.create_ticket, name='add_ticket'),
     path('doctors/list/', web_views.list_doctors, name='list_doctors'),
     path('patients/', web_views.list_patients, name='list_patients'),
+    path('search/', web_views.search_patients, name='search_patients'),
+    path('patients/download', web_views.download_patients, name='download_patients'),
     path('api/patients/', web_views.patient_list),
     path('api/patients/<int:patient_id>', web_views.get_patient)
 ]

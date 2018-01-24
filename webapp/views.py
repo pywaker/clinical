@@ -1,12 +1,15 @@
 
+import os
+import csv
 import logging
 from django.utils import timezone
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.conf import settings
 
 from .models import Clinic, ClinicTickets, Patient, Doctor
 from .forms import ClinicTicketForm
@@ -15,6 +18,11 @@ from .serializers import PatientSerializer
 
 logger = logging.getLogger('django')
 
+
+def list_patients_by(username, phone):
+    # return Patient.objects.filter(fullname__startswith=fullname).all()
+    # q = Q(status='open')
+    return (Q(user__username__icontains=username) & Q(phone__contains=phone))
 
 
 # Create your views here.
@@ -63,6 +71,41 @@ def list_patients(request):
     patients = paginator.get_page(page)
     return render(template_name='list_patients.html',
                   request=request, context={'patients': patients})
+
+
+def search_patients(request):
+    if request.method == 'POST':
+        fullname = request.POST.get('fullname')
+        phone = request.POST.get('phone')
+        patient_query = list_patients_by(fullname, phone)
+        print(patient_query)
+        patients_all = Patient.objects.filter(patient_query).all()
+        paginator = Paginator(patients_all, 10)
+        page = request.GET.get('page', 1)
+        patients = paginator.get_page(page)
+        return render(template_name='list_patients.html',
+                      request=request, context={'patients': patients})
+    else:
+        return redirect(to='list_patients')
+
+
+def download_patients(request):
+    patients_all = Patient.objects.prefetch_related(Prefetch('user')).all()
+    filename = os.path.join(settings.TEMP_MEDIA_PATH, 'patients.csv')
+    with open(filename, 'w') as csvfile:
+        csvwriter = csv.DictWriter(csvfile, fieldnames=['id', 'username', 'fullname'])
+        csvwriter.writeheader()
+        for patient in patients_all:
+            csvwriter.writerow({
+                'id': patient.id,
+                'username': patient.user.username,
+                'fullname': patient.fullname
+            })
+
+    with open(filename, 'r') as csvfile:
+        response = HttpResponse(csvfile.read(), content_type="text/csv")
+        response['Content-Disposition'] = 'inline; filename=patients.csv'
+        return response
 
 
 @csrf_exempt
